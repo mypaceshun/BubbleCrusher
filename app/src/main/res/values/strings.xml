@@ -2,4 +2,6 @@
     <string name="app_name">BubbleCrusher</string>
     <string name="retry_text">RETRY</string>
     <string name="scoreTitle_text">SCORE</string>
+    <string name="mainTitle_text">Bubble Crusher</string>
+    <string name="startBottun_text">START</string>
 </resources>
