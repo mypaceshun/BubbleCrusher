@@ -16,8 +16,8 @@ import android.widget.TextView;
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     private Handler handler = new Handler();
     private long count = 0;
-    private int period = 1000;
-    private int limit = 10;
+    private int period = 10;
+    private int limit = 100;
     private Runnable run;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 count--;
                 TextView time_limit = (TextView)findViewById(R.id.timeLimit);
                 time_limit.setText(String.valueOf(count));
+                PlayView playView = (PlayView)findViewById(R.id.playView);
+                playView.circle.radius =(int) count*10;
+                playView.invalidate();
                 Log.d("count", "count :" + count);
                 if (count <= 0) {
                     changeResultLayout();
