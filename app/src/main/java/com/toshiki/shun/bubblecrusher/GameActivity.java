@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 
 /**
  * Created by toshiki on 2018/03/10.
@@ -24,13 +26,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void init(){
         setContentView(R.layout.activity_game);
-        count = 0;
+        count = limit;
+        TextView time_limit = (TextView)findViewById(R.id.timeLimit);
+        time_limit.setText(String.valueOf(count));
         run = new Runnable() {
             @Override
             public void run() {
-                count++;
+                count--;
+                TextView time_limit = (TextView)findViewById(R.id.timeLimit);
+                time_limit.setText(String.valueOf(count));
                 Log.d("count", "count :" + count);
-                if (count >= limit) {
+                if (count <= 0) {
                     changeResultLayout();
                 }else {
                     handler.postDelayed(this, period);
