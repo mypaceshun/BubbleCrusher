@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/timeLimit_textView"
+        android:id="@+id/timeLimit"
         android:layout_width="93dp"
         android:layout_height="33dp"
         android:layout_marginBottom="8dp"
