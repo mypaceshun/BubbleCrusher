@@ -8,25 +8,30 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bubble Crusher"
+        android:layout_width="324dp"
+        android:layout_height="89dp"
+        android:gravity="center"
+        android:text="@string/mainTitle_text"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297" />
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
+        android:layout_width="160dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        android:text="START"
+        android:text="@string/startBottun_text"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.129" />
+        app:layout_constraintVertical_bias="0.505" />
 
 </android.support.constraint.ConstraintLayout>

@@ -38,13 +38,14 @@
         android:layout_height="58dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="68dp"
+        android:gravity="center"
         android:text="@string/scoreTitle_text"
         android:textColor="@color/colorAccent"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127"
-        tools:textSize="50sp" />
+        app:layout_constraintVertical_bias="0.127" />
 
 </android.support.constraint.ConstraintLayout>
