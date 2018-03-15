@@ -43,4 +43,9 @@ public class PlayView extends View {
     public void addCircle(Circle c) {
         this.circles.add(c);
     }
+    public void init() {
+        this.circles.clear();
+        Circle initCircle = new Circle(100, 100, 10);
+        this.addCircle(initCircle);
+    }
 }
