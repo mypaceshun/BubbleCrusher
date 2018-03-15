@@ -13,6 +13,9 @@ import java.util.Locale;
 
 /**
  * Created by toshiki on 2018/03/10.
+ * Game画面とResult画面を表示するアクティビティ
+ * 画面遷移は読み込むレイアウトファイルを切り替えることで実装
+ * @author shun
  */
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
@@ -33,6 +36,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         this.init();
     }
+    /**
+     * Game画面の初期化処理を実装
+     * 具体的に行っている処理は以下の通り
+     * 1, Gameレイアウトの読み込み
+     * 2, タイマーのリセット
+     * 3, 各種ビューの初期化(timerText, PlayView)
+     * 4, スレッドのスタート
+     */
     public void init(){
         setContentView(R.layout.activity_game);
         // Timer init
@@ -77,6 +88,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handler.postDelayed(run, clock);
 
     }
+    /**
+     * Result画面への切り替えを行う
+     */
     public void changeResultLayout(){
         handler.removeCallbacks(run);
         run = null;
