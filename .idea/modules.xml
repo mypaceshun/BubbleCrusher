@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BubbleCrusher.iml" filepath="$PROJECT_DIR$/.idea/BubbleCrusher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BubbleCrusher.iml" filepath="$PROJECT_DIR$/BubbleCrusher.iml" />
+      <module fileurl="file://C:\Users\shun\AndroidStudioProjects\BubbleCrusher\.idea\BubbleCrusher.iml" filepath="C:\Users\shun\AndroidStudioProjects\BubbleCrusher\.idea\BubbleCrusher.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
