@@ -1,5 +1,7 @@
 # Bubble Crusher
 
+[![Build Status](https://travis-ci.org/mypaceshun/BubbleCrusher.svg?branch=master)](https://travis-ci.org/mypaceshun/BubbleCrusher)
+
 ## 概要
 
 丸が出てきてタップするゲイム
