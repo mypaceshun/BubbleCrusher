@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 /**
@@ -15,10 +17,17 @@ import android.widget.TextView;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     private Handler handler = new Handler();
-    private long count = 0;
-    private int period = 10;
-    private int limit = 100;
+    private int clock = 10; // ms
     private Runnable run;
+
+    private long startTime;
+    private long endTime;
+    private long limitTime = 20 * 1000; // ms
+
+
+    private SimpleDateFormat dataFormat =
+            new SimpleDateFormat("mm:ss.SS", Locale.JAPAN);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,31 +35,46 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void init(){
         setContentView(R.layout.activity_game);
-        count = limit;
-        TextView time_limit = (TextView)findViewById(R.id.timeLimit);
-        time_limit.setText(String.valueOf(count));
+        // Timer init
+        startTime = System.currentTimeMillis();
 
+        // Count text init
+        TextView time_limit = (TextView)findViewById(R.id.timeLimit);
+        time_limit.setText(dataFormat.format(limitTime));
+
+        // PlayView init
         PlayView playView = (PlayView)findViewById(R.id.playView);
         playView.init();
 
+        // run thread
         run = new Runnable() {
             @Override
             public void run() {
-                count--;
+                // 残り時間の計算
+                endTime = System.currentTimeMillis();
+                long diffTime = endTime - startTime;
+                long remainTime = limitTime - diffTime;
+                if(remainTime < 0){
+                        remainTime = 0;
+                }
+
+
                 TextView time_limit = (TextView)findViewById(R.id.timeLimit);
-                time_limit.setText(String.valueOf(count));
+                time_limit.setText(dataFormat.format(remainTime));
+
+                // PlayViewのリフレッシュ
                 PlayView playView = (PlayView)findViewById(R.id.playView);
                 playView.step();
                 playView.invalidate();
-                Log.d("count", "count :" + count);
-                if (count <= 0) {
+
+                if (remainTime <= 0) {
                     changeResultLayout();
                 }else {
-                    handler.postDelayed(this, period);
+                    handler.postDelayed(this, clock);
                 }
             }
         };
-        handler.postDelayed(run, period);
+        handler.postDelayed(run, clock);
 
     }
     public void changeResultLayout(){
