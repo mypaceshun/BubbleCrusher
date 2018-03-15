@@ -35,9 +35,12 @@ public class PlayView extends View {
         this(context, null);
     }
     public void onDraw(Canvas canvas) {
-        for(Circle circle : this.circle) {
+        for(Circle circle : this.circles) {
                 canvas.drawCircle(circle.x, circle.y, circle.radius, paint);
         }
         Log.d("CustomOnClickListainer", "描画されたよ");
+    }
+    public void addCircle(Circle c) {
+        this.circles.add(c);
     }
 }

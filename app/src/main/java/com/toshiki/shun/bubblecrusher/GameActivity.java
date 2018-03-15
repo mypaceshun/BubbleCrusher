@@ -36,7 +36,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 TextView time_limit = (TextView)findViewById(R.id.timeLimit);
                 time_limit.setText(String.valueOf(count));
                 PlayView playView = (PlayView)findViewById(R.id.playView);
-                playView.circle.radius =(int) count*10;
+                Circle circle = new Circle(10, 10, 10);
+                playView.addCircle(circle);
                 playView.invalidate();
                 Log.d("count", "count :" + count);
                 if (count <= 0) {
