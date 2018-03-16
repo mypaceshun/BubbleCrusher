@@ -8,21 +8,21 @@ package com.toshiki.shun.bubblecrusher;
 
 public class Circle {
     /** x座標 */
-    public int x = 0;
+    public float x = 0;
     /** y座標 */
-    public int y = 0;
+    public float y = 0;
     /** 速度のx成分 */
-    public int vx = 0;
+    public float vx = 0;
     /** 速度のy成分 */
-    public int vy = 0;
+    public float vy = 0;
     /** 加速度のx成分 */
-    public int ax = 0;
+    public float ax = 0;
     /** 加速度のy成分 */
-    public int ay = 0;
+    public float ay = 0;
     /** 半径 */
-    public int radius = 0;
+    public float radius = 0;
     /** 色 */
-    public int color = 0;
+    public float color = 0;
 
     /**
      * コンストラクト
@@ -30,7 +30,7 @@ public class Circle {
      * @param y y座標
      * @param radius 半径
      */
-    public Circle(int x, int y, int radius) {
+    public Circle(float x, float y, float radius) {
         this.x = x;
         this.y= y;
         this.radius = radius;
