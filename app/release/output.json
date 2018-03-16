@@ -1,0 +1,16 @@
+[{
+  "outputType":{
+    "type":"APK"
+  },
+  "apkInfo":{
+    "type":"MAIN",
+    "splits":[],
+    "versionCode":1
+  },
+  "path":"BubbreCrusher.apk",
+  "properties":{
+    "packageId":"com.toshiki.shun.bubblecrusher",
+    "split":"",
+    "minSdkVersion":"17"
+  }
+}]
