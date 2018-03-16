@@ -65,9 +65,6 @@ public class PlayView extends View {
      */
     public void init() {
         this.circles.clear();
-        // (FIXME:shun)テスト用に円を一つ定義している
-        Circle initCircle = new Circle(100, 100, 10);
-        this.addCircle(initCircle);
     }
     /**
      * ステップ関数

@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private SimpleDateFormat dataFormat =
-            new SimpleDateFormat("mm:ss.SS", Locale.JAPAN);
+            new SimpleDateFormat("ss.SS", Locale.JAPAN);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
                 // PlayViewのリフレッシュ
                 PlayView playView = (PlayView)findViewById(R.id.playView);
+
+                // 0.1秒ごとに円を追加するテスト
+                if((int)remainTime % 10 < 1 ) { // ピッタリ0になる可能性が低いので許容範囲を与えている
+                        Circle c = new Circle(500, 100, 100);
+                        float rand = (int)remainTime / 10 % 20 - 10;
+                        c.vx = rand;
+                        c.vy = rand;
+                        c.ay = (float)0.3;
+                        playView.addCircle(c);
+                }
                 playView.step();
                 playView.invalidate();
 
