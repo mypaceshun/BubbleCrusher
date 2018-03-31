@@ -3,6 +3,7 @@ package com.toshiki.shun.bubblecrusher;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private Handler handler = new Handler();
     private int clock = 0; // ms
     private Runnable run;
+    public long counter = 0;
 
     private long startTime;
     private long endTime;
@@ -57,10 +59,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         PlayView playView = (PlayView)findViewById(R.id.playView);
         playView.init();
 
+        this.counter = 0;
+
         // run thread
         run = new Runnable() {
             @Override
             public void run() {
+                counter++;
+                Log.d("GameActivity", "counter:" + String.valueOf(counter));
                 // 残り時間の計算
                 endTime = System.currentTimeMillis();
                 long diffTime = endTime - startTime;
@@ -76,14 +82,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // PlayViewのリフレッシュ
                 PlayView playView = (PlayView)findViewById(R.id.playView);
 
-                // 0.1秒ごとに円を追加するテスト
-                if((int)remainTime % 10 < 1 ) { // ピッタリ0になる可能性が低いので許容範囲を与えている
-                        Circle c = new Circle(500, 100, 100);
-                        float rand = (int)remainTime / 10 % 20 - 10;
-                        c.vx = rand;
-                        c.vy = rand;
-                        c.ay = (float)0.3;
-                        playView.addCircle(c);
+                if(counter % 50 == 0){
+                    playView.addRandCircle(200);
                 }
                 playView.step();
                 playView.invalidate();

@@ -1,5 +1,9 @@
 package com.toshiki.shun.bubblecrusher;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+
 /**
  * Created by toshiki on 2018/03/11.
  * 動く円のクラス
@@ -22,9 +26,11 @@ public class Circle {
     /** 半径 */
     public float radius = 0;
     /** 色 */
-    public float color = 0;
+    public int color = Color.GREEN;
     /** 削除フラグ */
     public boolean visible = true;
+    /** paint */
+    private Paint paint;
 
     /**
      * コンストラクト
@@ -36,6 +42,9 @@ public class Circle {
         this.x = x;
         this.y= y;
         this.radius = radius;
+        this.paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.FILL);
     }
     /**
      * コンストラクタ
@@ -68,5 +77,10 @@ public class Circle {
     }
     public void touch() {
         this.visible = false;
+    }
+    public void onDraw(Canvas canvas) {
+        paint.setColor(this.color);
+        if(this.visible == true)
+            canvas.drawCircle(this.x, this.y, this.radius, paint);
     }
 }
