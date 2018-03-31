@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class PlayView extends View {
         // }
         // とするのと同じ意味
         for(Circle circle : this.circles) {
+            if (circle.visible)
                 canvas.drawCircle(circle.x, circle.y, circle.radius, paint);
         }
         Log.d("CustomOnClickListainer", "描画されたよ");
@@ -71,8 +73,26 @@ public class PlayView extends View {
      * 内部に持っているCircleすべてのステップ関数を呼びだす
      */
     public void step() {
+        if(this.circles.size() < 1)
+            return;
         for(Circle circle: this.circles) {
                 circle.step();
         }
+        // visibleフラグがfalseになっている円はすべて削除
+        for(int i = circles.size() -1; i < 0; i--)
+           if(circles.get(i).visible == false)
+               circles.remove(i);
+
+    }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_DOWN){
+            for (Circle c : this.circles) {
+                if (c.isInner(event.getX(), event.getY())) {
+                    c.touch();
+                }
+            }
+        }
+        return false;
     }
 }
