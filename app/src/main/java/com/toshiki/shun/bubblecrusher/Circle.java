@@ -76,7 +76,8 @@ public class Circle {
     public boolean isInner(float x, float y){
         float lenx = this.x - x;
         float leny = this.y - y;
-        float len = (float)Math.sqrt(lenx * lenx + leny * leny);
+        float margin = 10;
+        float len = (float)Math.sqrt(lenx * lenx + leny * leny) - margin;
         return len < this.radius;
     }
     public void touch() {
