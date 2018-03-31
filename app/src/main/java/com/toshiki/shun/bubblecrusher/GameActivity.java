@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,8 +30,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private long startTime;
     private long endTime;
     private long limitTime = 20 * 1000; // ms
-
-
     private SimpleDateFormat dataFormat =
             new SimpleDateFormat("ss.SS", Locale.JAPAN);
 
@@ -106,6 +106,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_result);
         Button retry_buttom = (Button)findViewById(R.id.retry_botton);
         TextView score_number = (TextView) findViewById(R.id.score_numberView);
+
+        Animation animation = (Animation) AnimationUtils.loadAnimation(this, R.anim.inanimation);
+        retry_buttom.startAnimation(animation);
+
         score_number.setText(String.valueOf(score));
         retry_buttom.setOnClickListener(new View.OnClickListener() {
             @Override
