@@ -21,6 +21,8 @@ public class VanishCircle extends Circle {
     @Override
     public void step(){
         super.step();
+        if(this.crush)
+            return;
         if(this.radius <= 0.0) {
             this.radius = (float) 0.0;
             this.visible = false;
