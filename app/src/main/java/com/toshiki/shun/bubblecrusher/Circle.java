@@ -23,6 +23,8 @@ public class Circle {
     public float radius = 0;
     /** 色 */
     public float color = 0;
+    /** 削除フラグ */
+    public boolean visible = true;
 
     /**
      * コンストラクト
@@ -50,5 +52,21 @@ public class Circle {
         this.y += this.vy;
         this.vx += this.ax;
         this.vy += this.ay;
+    }
+
+    /**
+     *  指定された座標が円内にあるか判定
+     * @param x x座標
+     * @param y y座標
+     * @return  円内ならtrue 円外ならfalse
+     */
+    public boolean isInner(float x, float y){
+        float lenx = this.x - x;
+        float leny = this.y - y;
+        float len = (float)Math.sqrt(lenx * lenx + leny * leny);
+        return len < this.radius;
+    }
+    public void touch() {
+        this.visible = false;
     }
 }

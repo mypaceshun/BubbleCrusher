@@ -3,9 +3,9 @@ package com.toshiki.shun.bubblecrusher;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     private Handler handler = new Handler();
-    private int clock = 10; // ms
+    private int clock = 0; // ms
     private Runnable run;
 
     private long startTime;
@@ -87,9 +87,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 playView.step();
                 playView.invalidate();
-
                 if (remainTime <= 0) {
-                    changeResultLayout();
+                    changeResultLayout(playView.getScore());
                 }else {
                     handler.postDelayed(this, clock);
                 }
@@ -101,11 +100,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Result画面への切り替えを行う
      */
-    public void changeResultLayout(){
+    public void changeResultLayout(int score){
         handler.removeCallbacks(run);
         run = null;
         setContentView(R.layout.activity_result);
         Button retry_buttom = (Button)findViewById(R.id.retry_botton);
+        EditText score_number = (EditText) findViewById(R.id.score_numberView);
+        score_number.setText(String.valueOf(score));
         retry_buttom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
