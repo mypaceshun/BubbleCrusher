@@ -105,7 +105,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         run = null;
         setContentView(R.layout.activity_result);
         Button retry_buttom = (Button)findViewById(R.id.retry_botton);
-        EditText score_number = (EditText) findViewById(R.id.score_numberView);
+        TextView score_number = (TextView) findViewById(R.id.score_numberView);
         score_number.setText(String.valueOf(score));
         retry_buttom.setOnClickListener(new View.OnClickListener() {
             @Override
