@@ -104,19 +104,31 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         handler.removeCallbacks(run);
         run = null;
         setContentView(R.layout.activity_result);
-        Button retry_buttom = (Button)findViewById(R.id.retry_botton);
+        Button retry_button = (Button)findViewById(R.id.retry_botton);
         TextView score_number = (TextView) findViewById(R.id.score_numberView);
 
         Animation animation = (Animation) AnimationUtils.loadAnimation(this, R.anim.inanimation);
-        retry_buttom.startAnimation(animation);
+        retry_button.startAnimation(animation);
 
         score_number.setText(String.valueOf(score));
-        retry_buttom.setOnClickListener(new View.OnClickListener() {
+
+        // リトライボタンが表示されるまで押せないように待つ
+        new Handler().postDelayed(new Runnable() {
+            // Runnable型のインスタンス化と定義
             @Override
-            public void onClick(View v) {
-                init();
+            public void run() {
+
+                // 遅らせて実行したい処理
+               Button retry_button = (Button)findViewById(R.id.retry_botton);
+                retry_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        init();
+                    }
+                });
             }
-        });
+        }, 3000);
+
 
     }
     @Override
