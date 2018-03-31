@@ -27,8 +27,12 @@ public class Circle {
     public float radius = 0;
     /** 色 */
     public int color = Color.GREEN;
+    /** 透明度 */
+    public int alpha = 255;
     /** 削除フラグ */
     public boolean visible = true;
+    /** エフェクトフラグ */
+    public boolean crush = false;
     /** paint */
     private Paint paint;
 
@@ -76,11 +80,23 @@ public class Circle {
         return len < this.radius;
     }
     public void touch() {
-        this.visible = false;
+        this.crush = true;
     }
     public void onDraw(Canvas canvas) {
+        if(this.crush)
+            this.onCrushEffect();
         paint.setColor(this.color);
-        if(this.visible == true)
+        paint.setAlpha(this.alpha);
+        if(this.visible)
             canvas.drawCircle(this.x, this.y, this.radius, paint);
     }
+    public void onCrushEffect(){
+        this.radius += 10;
+        this.alpha -= 10;
+        if(this.alpha <= 0){
+            this.crush = false;
+            this.visible = false;
+        }
+    }
+
 }
