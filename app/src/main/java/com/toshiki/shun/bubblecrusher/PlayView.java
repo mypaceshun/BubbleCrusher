@@ -20,18 +20,12 @@ import java.util.ArrayList;
  */
 
 public class PlayView extends View {
-    private Paint paint;
-    private ArrayList<Circle> circles;
+    private ArrayList<VanishCircle> circles;
     private int score = 0;
 
     public PlayView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(Color.GREEN);
-        paint.setStyle(Paint.Style.FILL);
-
-        circles = new ArrayList<Circle>();
+        circles = new ArrayList<VanishCircle>();
     }
     public PlayView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -48,19 +42,26 @@ public class PlayView extends View {
         //    circles[i];
         // }
         // とするのと同じ意味
-        for(Circle circle : this.circles) {
-            if (circle.visible)
-                canvas.drawCircle(circle.x, circle.y, circle.radius, paint);
+        for(VanishCircle circle : this.circles) {
+            circle.onDraw(canvas);
         }
-        Log.d("CustomOnClickListainer", "描画されたよ");
     }
     /**
      * 円の追加を行う
      * 引数に渡されたCircleのインスタンスを内部のリストに追加する
      * @param circle ビューに追加する円
      */
-    public void addCircle(Circle circle) {
+    public void addCircle(VanishCircle circle) {
         this.circles.add(circle);
+    }
+    public void addRandCircle(float radius) {
+        float margin = radius;
+        float MaxY = this.getHeight() - margin * 2;
+        float MaxX = this.getWidth() - margin * 2;
+        float randx = (float)Math.random() * MaxX + margin;
+        float randy = (float)Math.random() * MaxY + margin;
+        VanishCircle c = new VanishCircle(randx, randy, radius);
+        this.addCircle(c);
     }
     /**
      * 初期化処理を行う
@@ -89,14 +90,17 @@ public class PlayView extends View {
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN){
-            for (Circle c : this.circles) {
-                if (c.isInner(event.getX(), event.getY())) {
+        int count = event.getPointerCount();
+        for (int i = 0; i < count; i++) {
+            for (VanishCircle c : this.circles) {
+                if (c.isInner(event.getX(i), event.getY(i))) {
                     c.touch();
-                    this.score++;
+                    this.score += 1 * c.rate;
                 }
             }
         }
+        Log.d("TouchEvent", "x: " + String.valueOf(event.getX(0)));
+        Log.d("TouchEvent", "y: " + String.valueOf(event.getY(0)));
         return false;
     }
     public int getScore(){ return this.score; }
