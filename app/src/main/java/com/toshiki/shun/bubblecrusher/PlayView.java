@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class PlayView extends View {
     private Paint paint;
     private ArrayList<Circle> circles;
+    private int score = 0;
 
     public PlayView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -64,9 +65,11 @@ public class PlayView extends View {
     /**
      * 初期化処理を行う
      * 1, リスト内の円をすべて削除
+     * 2. scoreリセット
      */
     public void init() {
         this.circles.clear();
+        this.score = 0;
     }
     /**
      * ステップ関数
@@ -90,9 +93,11 @@ public class PlayView extends View {
             for (Circle c : this.circles) {
                 if (c.isInner(event.getX(), event.getY())) {
                     c.touch();
+                    this.score++;
                 }
             }
         }
         return false;
     }
+    public int getScore(){ return this.score; }
 }
