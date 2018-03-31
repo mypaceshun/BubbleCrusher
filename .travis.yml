@@ -13,6 +13,9 @@ android:
 
   # Additional components
     - extra-android-m2repository
-
+branches:
+  only:
+    - develop
+    - master
 script:
   - ./gradlew assembleDebug test
