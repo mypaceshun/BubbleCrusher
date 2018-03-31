@@ -7,48 +7,100 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 /**
  * Created by toshiki on 2018/03/10.
+ * Game画面とResult画面を表示するアクティビティ
+ * 画面遷移は読み込むレイアウトファイルを切り替えることで実装
+ * @author shun
  */
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     private Handler handler = new Handler();
-    private long count = 0;
-    private int period = 10;
-    private int limit = 100;
+    private int clock = 10; // ms
     private Runnable run;
+
+    private long startTime;
+    private long endTime;
+    private long limitTime = 20 * 1000; // ms
+
+
+    private SimpleDateFormat dataFormat =
+            new SimpleDateFormat("ss.SS", Locale.JAPAN);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.init();
     }
+    /**
+     * Game画面の初期化処理を実装
+     * 具体的に行っている処理は以下の通り
+     * 1, Gameレイアウトの読み込み
+     * 2, タイマーのリセット
+     * 3, 各種ビューの初期化(timerText, PlayView)
+     * 4, スレッドのスタート
+     */
     public void init(){
         setContentView(R.layout.activity_game);
-        count = limit;
+        // Timer init
+        startTime = System.currentTimeMillis();
+
+        // Count text init
         TextView time_limit = (TextView)findViewById(R.id.timeLimit);
-        time_limit.setText(String.valueOf(count));
+        time_limit.setText(dataFormat.format(limitTime));
+
+        // PlayView init
+        PlayView playView = (PlayView)findViewById(R.id.playView);
+        playView.init();
+
+        // run thread
         run = new Runnable() {
             @Override
             public void run() {
-                count--;
+                // 残り時間の計算
+                endTime = System.currentTimeMillis();
+                long diffTime = endTime - startTime;
+                long remainTime = limitTime - diffTime;
+                if(remainTime < 0){
+                        remainTime = 0;
+                }
+
+
                 TextView time_limit = (TextView)findViewById(R.id.timeLimit);
-                time_limit.setText(String.valueOf(count));
+                time_limit.setText(dataFormat.format(remainTime));
+
+                // PlayViewのリフレッシュ
                 PlayView playView = (PlayView)findViewById(R.id.playView);
-                playView.circle.radius =(int) count*10;
+
+                // 0.1秒ごとに円を追加するテスト
+                if((int)remainTime % 10 < 1 ) { // ピッタリ0になる可能性が低いので許容範囲を与えている
+                        Circle c = new Circle(500, 100, 100);
+                        float rand = (int)remainTime / 10 % 20 - 10;
+                        c.vx = rand;
+                        c.vy = rand;
+                        c.ay = (float)0.3;
+                        playView.addCircle(c);
+                }
+                playView.step();
                 playView.invalidate();
-                Log.d("count", "count :" + count);
-                if (count <= 0) {
+
+                if (remainTime <= 0) {
                     changeResultLayout();
                 }else {
-                    handler.postDelayed(this, period);
+                    handler.postDelayed(this, clock);
                 }
             }
         };
-        handler.postDelayed(run, period);
+        handler.postDelayed(run, clock);
 
     }
+    /**
+     * Result画面への切り替えを行う
+     */
     public void changeResultLayout(){
         handler.removeCallbacks(run);
         run = null;
