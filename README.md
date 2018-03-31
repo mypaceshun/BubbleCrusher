@@ -1,6 +1,6 @@
 # Bubble Crusher
 
-[![Build Status](https://travis-ci.org/mypaceshun/BubbleCrusher.svg?branch=master)](https://travis-ci.org/mypaceshun/BubbleCrusher)
+[![Build Status](https://travis-ci.org/mypaceshun/BubbleCrusher.svg?branch=develop)](https://travis-ci.org/mypaceshun/BubbleCrusher)
 
 ## 概要
 
