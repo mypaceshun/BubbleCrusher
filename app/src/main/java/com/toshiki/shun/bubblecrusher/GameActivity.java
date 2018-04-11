@@ -82,7 +82,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 // PlayViewのリフレッシュ
                 PlayView playView = (PlayView)findViewById(R.id.playView);
 
-                if(counter % 50 == 0){
+                if(counter % 30 == 0){
                     playView.addRandCircle(200);
                 }
                 playView.step();
