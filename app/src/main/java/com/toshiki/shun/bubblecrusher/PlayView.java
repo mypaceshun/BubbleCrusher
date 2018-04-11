@@ -93,7 +93,8 @@ public class PlayView extends View {
         int count = event.getPointerCount();
         for (int i = 0; i < count; i++) {
             for (VanishCircle c : this.circles) {
-                if (c.isInner(event.getX(i), event.getY(i))) {
+                if (c.isInner(event.getX(i), event.getY(i))
+                    && c.crush == false) {
                     c.touch();
                     this.score += 1 * c.rate;
                 }
